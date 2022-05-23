@@ -31,3 +31,7 @@ Route::get('transactions/showDataAjax2/{id}','TransactionController@showAjax2')
 
 
 Route::resource('suppliers','SupplierController');
+Route::post('suppliers/getEditForm','SupplierController@getEditForm')
+    ->name('suppliers.getEditForm');
+Route::post('suppliers/deleteData','SupplierController@deleteData')
+    ->name('suppliers.deleteData');
