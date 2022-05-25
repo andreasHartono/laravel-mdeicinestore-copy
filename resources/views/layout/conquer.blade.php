@@ -1,24 +1,9 @@
 <!DOCTYPE html>
-	<!-- 
-Template Name: Conquer - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
-Version: 2.0
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/conquer-responsive-admin-dashboard-template/3716838?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
+
 <html lang="en" class="no-js">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
-	<head>
+<head>
 <meta charset="utf-8"/>
-<title>Conquer | UI Features - Modals</title>
+<title>APOTEK A</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="" name="description"/>
@@ -40,8 +25,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
-
-
     @yield('javascript')
 </head>
 <!-- END HEAD -->
@@ -74,32 +57,28 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- BEGIN USER LOGIN DROPDOWN -->
             <li class="dropdown user">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                <img alt="" src="assets/img/avatar3_small.jpg"/>
-                <span class="username">
-                Nick </span>
+                  <img alt="" src="assets/img/avatar3_small.jpg"/>
+                  <span class="username">
+                     @if(Auth::user())
+                        {{ Auth::user()->name }}
+                     @else
+                           <a href="{{ route('login') }}" class="btn btn-info">LOGIN</a>
+                     @endif
+                  </span>
                 <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="extra_profile.html"><i class="fa fa-user"></i> My Profile</a>
                     </li>
-                    <li>
-                        <a href="page_calendar.html"><i class="fa fa-calendar"></i> My Calendar</a>
-                    </li>
-                    <li>
-                        <a href="page_inbox.html"><i class="fa fa-envelope"></i> My Inbox <span class="badge badge-danger">
-                        3 </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-tasks"></i> My Tasks <span class="badge badge-success">
-                        7 </span>
-                        </a>
-                    </li>
                     <li class="divider">
                     </li>
                     <li>
-                        <a href="login.html"><i class="fa fa-key"></i> Log Out</a>
+                        <form id="logout" action="{{ route('logout') }}" method="POST" class="d-none">
+                           @csrf
+                           <i class="fa fa-key"></i>
+                           <input class="btn btn-danger" type="submit" value="Logout">
+                        </form>
                     </li>
                 </ul>
             </li>

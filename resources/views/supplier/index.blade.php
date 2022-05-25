@@ -33,24 +33,26 @@
         <th>
             <a href="{{url('suppliers/' . $d->id . '/edit') }}" class="btn btn-warning">Edit</a>
             
-            
-            <form method="POST" action="{{url('suppliers/'.$d->id)}}" >
-                @csrf
-                @method('DELETE')
-                <input type='submit' value='Hapus' class="btn btn-danger"
-                onclick="if(!confirm('apakah anda yakin menghapus data {{$d->name}}')) return false;"   
-                />
-            </form>
+            @can('delete-permission')
+               <form method="POST" action="{{url('suppliers/'.$d->id)}}" >
+                  @csrf
+                  @method('DELETE')
+                  <input type='submit' value='Hapus' class="btn btn-danger"
+                  onclick="if(!confirm('apakah anda yakin menghapus data {{$d->name}}')) return false;"   
+                  />
+               </form>
+            @endcan
         </th>
         <th>
           <a href="#modalEdit" data-toggle='modal' 
             onclick="getEditForm({{$d->id}})"
             class="btn btn-warning">Edit (modal 1)</a>
-          
-            <a class="btn btn-danger"
-                onclick="if(confirm('apakah anda yakin menghapus data {{$d->name}}')) 
-                deleteDataRemoveTR({{$d->id}});"   
-                >Hapus 2 </a>
+            @can('delete-permission')
+               <a class="btn btn-danger"
+                  onclick="if(confirm('apakah anda yakin menghapus data {{$d->name}}')) 
+                  deleteDataRemoveTR({{$d->id}});"   
+                  >Hapus 2 </a>
+            @endcan
         </th>  
       </tr>
     @endforeach

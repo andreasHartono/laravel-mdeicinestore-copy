@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,7 +20,7 @@ Route::get('/', function () {
 Route::resource('medicines','MedicineController');
 Route::get('test','MedicineController@test');
 
-Route::resource('categories','CategoryController');
+Route::resource('categories','CategoryController')->middleware('auth');
 Route::get('report/listmedicine/{id}','CategoryController@showlist');
 
 Route::resource('transactions','TransactionController');
@@ -28,10 +29,14 @@ Route::post('transactions/showDataAjax','TransactionController@showAjax')
 
 Route::get('transactions/showDataAjax2/{id}','TransactionController@showAjax2')
     ->name('transactions.showAjax2');
+    
+Route::middleware(['auth'])->group(function() {
+   Route::resource('suppliers', 'SupplierController');
+   Route::post('suppliers/getEditForm', 'SupplierController@getEditForm')
+   ->name('suppliers.getEditForm');
+   Route::post('suppliers/deleteData', 'SupplierController@deleteData')
+   ->name('suppliers.deleteData');
+});
 
 
-Route::resource('suppliers','SupplierController');
-Route::post('suppliers/getEditForm','SupplierController@getEditForm')
-    ->name('suppliers.getEditForm');
-Route::post('suppliers/deleteData','SupplierController@deleteData')
-    ->name('suppliers.deleteData');
+Route::get('/home', 'HomeController@index')->name('home');
